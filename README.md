@@ -101,7 +101,3 @@ rosrun ur10_kinematics ur10_trajectory_node 0.7 0.7 0.7 0.7 0.1 0.1 0.1 0.1
 When we follow the steps from the command line, it will provide output as follows.
 
 ![img5](./ciktilar/odev_2_traj_cmd.png)
-
-
-
-Translated with DeepL.com (free version)

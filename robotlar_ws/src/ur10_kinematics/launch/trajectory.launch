@@ -1,0 +1,14 @@
+<launch>
+  <include file="$(find gazebo_plugins_rtg)/launch/ur10.launch" />
+
+  <node pkg="ur10_kinematics" type="ur10_trajectory_node" name="ur10_trajectory_node"
+    output="screen"
+    launch-prefix="bash -c 'sleep 5; $0 $@'">
+    <param name="x0" value="1.10" />
+    <param name="y0" value="0.30" />
+    <param name="z0" value="1.90" />
+    <param name="x1" value="1.20" />
+    <param name="y1" value="0.40" />
+    <param name="z1" value="1.80" />
+  </node>
+</launch>

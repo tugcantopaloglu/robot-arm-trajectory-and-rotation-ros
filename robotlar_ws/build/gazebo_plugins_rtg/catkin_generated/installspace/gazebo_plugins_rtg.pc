@@ -1,0 +1,8 @@
+prefix=/home/tugcan/Desktop/hw2-gitlab/hw2/robotlar_ws/install
+
+Name: gazebo_plugins_rtg
+Description: Description of gazebo_plugins_rtg
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib -lgazebo_plugins_rtg
+Requires: roscpp gazebo_ros

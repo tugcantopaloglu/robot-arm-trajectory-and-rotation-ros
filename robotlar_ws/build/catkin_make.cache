@@ -1,0 +1,2 @@
+gazebo_plugins_rtg:ur10_kinematics
+-DCATKIN_DEVEL_PREFIX=/home/tugcan/Desktop/hw2-gitlab/hw2/robotlar_ws/devel -DCMAKE_INSTALL_PREFIX=/home/tugcan/Desktop/hw2-gitlab/hw2/robotlar_ws/install -G Unix Makefiles

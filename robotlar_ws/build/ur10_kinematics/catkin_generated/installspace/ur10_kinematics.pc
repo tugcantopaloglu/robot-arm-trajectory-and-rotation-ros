@@ -1,0 +1,8 @@
+prefix=/home/tugcan/Desktop/hw2-gitlab/hw2/robotlar_ws/install
+
+Name: ur10_kinematics
+Description: Description of ur10_kinematics
+Version: 0.1.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lur10_kinematics
+Requires: roscpp std_msgs nav_msgs tf

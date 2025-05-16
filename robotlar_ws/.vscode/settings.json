@@ -1,0 +1,22 @@
+{
+  "files.associations": {
+    "random": "cpp",
+    "cmath": "cpp",
+    "ostream": "cpp",
+    "*.ipp": "cpp",
+    "array": "cpp",
+    "hash_map": "cpp",
+    "hash_set": "cpp",
+    "deque": "cpp",
+    "list": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "vector": "cpp",
+    "string_view": "cpp",
+    "initializer_list": "cpp",
+    "ranges": "cpp",
+    "regex": "cpp",
+    "iostream": "cpp"
+  }
+}

@@ -1,0 +1,30 @@
+name: C++ logic regression
+
+on:
+  push:
+    paths:
+      - 'robotlar_ws/src/ur10_kinematics/**'
+      - '.github/workflows/logic-tests.yml'
+  pull_request:
+    paths:
+      - 'robotlar_ws/src/ur10_kinematics/**'
+      - '.github/workflows/logic-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  logic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Compile with warnings and sanitizers
+        run: >-
+          g++ -std=c++11 -Wall -Wextra -Werror -UNDEBUG -O1 -g
+          -fsanitize=address,undefined -fno-omit-frame-pointer
+          robotlar_ws/src/ur10_kinematics/test/trajectory_test.cpp
+          -o "$RUNNER_TEMP/trajectory_test"
+      - name: Run isolated logic regressions
+        run: '"$RUNNER_TEMP/trajectory_test"'

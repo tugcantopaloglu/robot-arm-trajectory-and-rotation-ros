@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(ur10_kinematics)
 
+add_compile_options(-std=c++11)
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
@@ -41,3 +43,8 @@ target_link_libraries(ur10_trajectory_node
   ${catkin_LIBRARIES}
   ur10_kinematics
 )
+
+if(CATKIN_ENABLE_TESTING)
+  add_executable(trajectory_test test/trajectory_test.cpp)
+  add_test(NAME trajectory_test COMMAND trajectory_test)
+endif()

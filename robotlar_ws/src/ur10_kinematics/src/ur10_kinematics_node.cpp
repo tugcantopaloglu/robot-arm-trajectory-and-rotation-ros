@@ -8,12 +8,13 @@
 class UR10KinematicsNode
 {
 public:
-    UR10KinematicsNode()
+    UR10KinematicsNode() : kinematics_(new UR10Kinematics()),
+                           actual_position_(Eigen::Vector3d::Zero()),
+                           actual_orientation_(Eigen::Quaterniond::Identity())
     {
         joint_angles_pub_ = nh_.advertise<std_msgs::Float32MultiArray>("/ur10_arm/acilar", 1);
         odometry_sub_ = nh_.subscribe("/ur10_arm/odometri", 1, &UR10KinematicsNode::odometryCallback, this);
         ros::Duration(1.0).sleep();
-        kinematics_ = new UR10Kinematics();
     }
 
     ~UR10KinematicsNode()
@@ -36,6 +37,7 @@ public:
             msg->pose.pose.orientation.x,
             msg->pose.pose.orientation.y,
             msg->pose.pose.orientation.z);
+        has_odometry_ = true;
 
         ROS_INFO("Gercek pozisyon: [%.4f, %.4f, %.4f]",
                  actual_position_(0), actual_position_(1), actual_position_(2));
@@ -73,6 +75,11 @@ public:
         ros::Duration(2.0).sleep();
         ros::spinOnce();
 
+        if (!has_odometry_)
+        {
+            ROS_WARN("No odometry received; skipping the observed pose comparison.");
+            return;
+        }
         Eigen::Vector3d position_error = position - actual_position_;
 
         ROS_INFO("Pozisyon hatasi: [%.4f, %.4f, %.4f], Buyukluk: %.4f",
@@ -88,6 +95,11 @@ public:
         target_pose.block<3, 1>(0, 3) = target_position;
 
         ros::spinOnce();
+        if (!has_odometry_)
+        {
+            ROS_WARN("No odometry received; skipping the inverse kinematics example.");
+            return;
+        }
         Eigen::Matrix3d current_rot = actual_orientation_.toRotationMatrix();
         target_pose.block<3, 3>(0, 0) = current_rot;
 
@@ -145,6 +157,7 @@ private:
 
     Eigen::Vector3d actual_position_;
     Eigen::Quaterniond actual_orientation_;
+    bool has_odometry_ = false;
 };
 
 int main(int argc, char **argv)
